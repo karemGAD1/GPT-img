@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="GPT openai" content="openai,openai chat,openai chatbot gpt,openai api,gpt 4 openai,openai gpt4,openai gpt 4,openai chatgpt,openai chatbot,openai gpt 4 demo,openai ai,openai q*,openai gpt,openai ceo,openai key,gpt4 openai,openai gpts,openai apps,openai news,openai gpt 3,openai gpt3,openai drama,openai qstar,openai gpt-4,openai gpt-3,openai update,openai devday,openai academy,openai key free,free openai api,openai app store,openai research">
+    <meta name="artificial intelligence" content="artificial intelligence,what is artificial intelligence,artificial general intelligence,artificial intelligence tutorial,artificial intelligence for beginners,types of artificial intelligence,artificial intelligence explained,introduction to artificial intelligence,artificial intelligence basics,artificial intelligence course,artificial intelligence edureka,artificial intelligence applications,artificial intelligence tutorial for beginners">
+    <meta name="الذكاء الاصطناعي" content="الذكاء الاصطناعي,مجالات الذكاء الاصطناعي,توليد الصور بالذكاء الاصطناعي,الرسم عن طريق الذكاء الاصطناعي,الرسم بالذكاء الاصطناعي,الذكاء الإصطناعي,الذكاء الاصطناعي مجانا,تصميم الصور عن طريق الذكاء الاصطناعي,ذكاء اصطناعي,موقع توليد الصور بالذكاء الاصطناعي,مواقع انشاء صور باستخدام الذكاء الاصطنتاعي, موقع رسم بالذكاء الاصطناعي">
+    <link rel="stylesheet" href="GK.css">
+    <title>توليد صور</title>
+</head>
+
+<body>
+    <h2>اكتب وصف الصوره</h2>
+    <div class="GGG">
+        <h3>عند الضغط علي انشاء انتظر بضع الثواني للي انشاء الصور</h3>
+
+    </div>
+    <div class="im">
+    </div>
+    <div class="pr">
+        <input id="i" type="text">
+        <button onclick="gk()"> <h1>انشاء </h1> </button>
+    </div>
+    <script>
+        const api = "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";
+        const i = document.getElementById('i');
+        const images = document.querySelector('.im'); // تصحيح اسم المتغير ليكون متسقًا
+
+        const gk = async() => {
+            const k = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", // تصحيح تنسيق content-type
+                    "Authorization": `Bearer ${api}`
+                },
+                body: JSON.stringify({
+                    "prompt": i.value,
+                    "n": 4,
+                    "size": "1024x1024"
+                })
+            }
+
+            try {
+                const g = await fetch('https://api.openai.com/v1/images/generations', k); // استخدام fetch لإرسال الطلب
+                const data = await g.json(); // تحويل الرد إلى JSON
+
+                console.log(data);
+
+                const photos = data.data; // تخزين البيانات في متغير جديد
+
+                photos.forEach(photo => { // استخدام forEach بدلاً من map
+                    const imgg = document.createElement('div'); // تصحيح نوع العنصر
+                    images.append(imgg);
+                    const img = document.createElement('img');
+                    imgg.append(img);
+                    img.src = photo.url;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            height: 100vh;
+        }
+        
+        h2 {
+            color: rgb(253, 253, 255);
+            font-size: 60px;
+            cursor: pointer;
+        }
+        
+        .pr {
+            background-color: black;
+            width: 620px;
+            border: 3px solid #1f1e1e;
+            border-radius: 10px;
+            height: 75px;
+            display: flex;
+        }
+        
+        input,
+        button {
+            padding: 10px;
+            border: none;
+            font-size: 20px;
+        }
+        
+        input {
+            background-color: black;
+            width: 75%;
+            outline: none;
+            color: blueviolet;
+        }
+        
+        button {
+            background-color: rgb(90, 88, 88);
+            width: 21%;
+            cursor: pointer;
+            color: rgb(60, 187, 43);
+            height: 75px;
+        }
+        
+        .im {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .im div {
+            background-color: rgb(29, 28, 28);
+            height: 200px;
+            width: 200px;
+            border-radius: 5px;
+            border: 3px solid #474444;
+        }
+        
+        .im div img {
+            width: 100%;
+        }
+        
+        .GGG {
+            background-color: rgb(29, 28, 28);
+            height: 100px;
+            width: 500px;
+            border-radius: 5px;
+            border: 3px solid #070522;
+            color: rgb(45, 107, 148);
+            font-size: 30px;
+            cursor: pointer;
+            text-align: center;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</body>
+
+</html>
