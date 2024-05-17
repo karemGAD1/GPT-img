@@ -23,43 +23,47 @@
         <button onclick="gk()"> <h1>انشاء </h1> </button>
     </div>
     <script>
-        const api = "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";
-        const i = document.getElementById('i');
-        const images = document.querySelector('.im'); // تصحيح اسم المتغير ليكون متسقًا
+       import fetch from 'node-fetch';
 
-        const gk = async() => {
-            const k = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json", // تصحيح تنسيق content-type
-                    "Authorization": `Bearer ${api}`
-                },
-                body: JSON.stringify({
-                    "prompt": i.value,
-                    "n": 4,
-                    "size": "1024x1024"
-                })
-            }
+const api = "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";
+const i = document.getElementById('i') as HTMLInputElement;
+const images = document.querySelector('.im') as HTMLElement;
 
-            try {
-                const g = await fetch('https://api.openai.com/v1/images/generations', k); // استخدام fetch لإرسال الطلب
-                const data = await g.json(); // تحويل الرد إلى JSON
+const gk = async () => {
+    const k = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${api}`
+        },
+        body: JSON.stringify({
+            "prompt": i.value,
+            "n": 4,
+            "size": "1024x1024"
+        })
+    }
 
-                console.log(data);
+    try {
+        const g = await fetch('https://api.openai.com/v1/images/generations', k);
+        const data = await g.json();
 
-                const photos = data.data; // تخزين البيانات في متغير جديد
+        console.log(data);
 
-                photos.forEach(photo => { // استخدام forEach بدلاً من map
-                    const imgg = document.createElement('div'); // تصحيح نوع العنصر
-                    images.append(imgg);
-                    const img = document.createElement('img');
-                    imgg.append(img);
-                    img.src = photo.url;
-                });
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+        const photos = data.data;
+
+        photos.forEach(photo => {
+            const imgg = document.createElement('div');
+            images.appendChild(imgg);
+            const img = document.createElement('img');
+            imgg.appendChild(img);
+            img.src = photo.url;
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
     </script>
     <style>
         * {
